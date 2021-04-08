@@ -1,0 +1,7 @@
+<ul class="pagination pagination-sm inline" id="users-page-list">
+    <li><a href="javascript:;">&laquo;</a></li>
+    {{each pageArray}}
+    <li><a href="javascript:;">{{$index+1}}</a></li>
+    {{/each}}
+    <li><a href="javascript:;">&raquo;</a></li>
+  </ul>
