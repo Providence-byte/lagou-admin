@@ -23,7 +23,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "./dist"),
         //打完包后的文件名
-        filename: '[name]-[hash:5].js'
+        filename: '[name].js'
 
     },
     module: {
