@@ -8,7 +8,7 @@
       <tr>
         <th style="width: 10px">#</th>
         <th>用户名</th>
-        <th style="width: 40px">操作</th>
+        <th style="width: 71px">操作</th>
       </tr>
       <tbody id="users-list"></tbody>
 

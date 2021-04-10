@@ -9,18 +9,29 @@ import routers from "../routes/index-r"
 const htmlIndex = htmlTpl({});
 const htmlSignin = signinTpl({});
 
-const pageSize = 3;
+const pageSize = 8;
 //保留当前页
 let curPage = 1;
 //dataList就是后端返回的数据data
 let dataList = [];
 
-//跳转到登录界面
+//登录后跳转到首页
 let _hundleSubmit = (router) => {
     return (e) => {
-        console.log(e);
         e.preventDefault();
-        router.go('/signin');
+        const data = $('#signin').serialize();//输出序列化表单值的结果
+        $.ajax({
+            url: '/api/users/signin',
+            type: 'post',
+            dataType:'json',
+            data,
+            success(res) {
+                if(res.ret){
+                    router.go('/index');
+                }
+                
+            }
+        })
     }
 }
 //注册
@@ -107,74 +118,101 @@ const signin = (router) => {
     }
 }
 const index = (router) => {
+    
     return (req, res, next) => {
-        res.render(htmlIndex)
-        //渲染表格
-        $('#user-content').html(usersTpl());
-        //jQuery写代理
-
-        //删除
-        $('#users-list').on('click', '.remove', function () {
-            $.ajax({
-                url: '/api/users',
-                type: 'delete',
-                data: {
-                    id: $(this).data('id')
-                },
-                success() {
-                    _loadData()
-                    //如果总条数/每页条数 === 当前页数并且是当前页的最后一条被删除后，那么就让当前的页数减一（跳转到前一页）
-                    const lastPage = Math.ceil(dataList.length / pageSize) === curPage
-                    const restOne = dataList.length % pageSize === 1
-                    const notFirst = curPage > 0
-                    // console.log(lastPage);
-                    // console.log(restOne);
-                    // console.log(notFirst);
-                    if (lastPage && restOne && notFirst) {
-                        curPage--;
+        const loadIndex = (res)=>{
+            res.render(htmlIndex)
+            //渲染表格
+            $('#user-content').html(usersTpl());
+            //jQuery写代理
+    
+            //删除
+            $('#users-list').on('click', '.remove', function () {
+                $.ajax({
+                    url: '/api/users',
+                    type: 'delete',
+                    data: {
+                        id: $(this).data('id')
+                    },
+                    success() {
+                        _loadData()
+                        //如果总条数/每页条数 === 当前页数并且是当前页的最后一条被删除后，那么就让当前的页数减一（跳转到前一页）
+                        const lastPage = Math.ceil(dataList.length / pageSize) === curPage
+                        const restOne = dataList.length % pageSize === 1
+                        const notFirst = curPage > 0
+                        // console.log(lastPage);
+                        // console.log(restOne);
+                        // console.log(notFirst);
+                        if (lastPage && restOne && notFirst) {
+                            curPage--;
+                        }
                     }
-                }
-
+    
+                })
             })
-        })
-        //翻页
-        $("#users-pages").on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
-            let index = $(this).index();
-            _list(index);
-            curPage = index;
-            _setPageActive(index);
-
-        })
-        //设置翻页的左右箭头
-        $("#users-pages").on('click', '#users-page-list li:first-child', function () {
-            if (curPage > 1) {
-                curPage--;
-                _list(curPage);
-                _setPageActive(curPage);
+            //翻页
+            $("#users-pages").on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
+                let index = $(this).index();
+                _list(index);
+                curPage = index;
+                _setPageActive(index);
+    
+            })
+            //设置翻页的左右箭头
+            $("#users-pages").on('click', '#users-page-list li:first-child', function () {
+                if (curPage > 1) {
+                    curPage--;
+                    _list(curPage);
+                    _setPageActive(curPage);
+                }
+            })
+            $("#users-pages").on('click', '#users-page-list li:last-child', function () {
+                let last = Math.ceil(dataList.length / pageSize);
+                if (curPage < last) {
+                    curPage++
+                    _list(curPage);
+                    _setPageActive(curPage);
+                }
+            })
+            //设置退出登录
+            $("#users-signout").on('click', function () {
+                console.log(routers);
+                //a的优先级比这个go高，所以先把a的默认事件干掉
+                $.ajax({
+                    url:'/api/users/signout',
+                    //后端一定要设置头部数据格式！！！不然补救起来很麻烦
+                    dataType:'json',
+                    success(result){
+                        if(result.ret){
+                            location.reload();
+                        } 
+                    }
+                })
+                
+            })
+            //初次渲染表格内容（用户列表）
+            _loadData();
+            _list(1);
+    
+    
+    
+            //点击保存，提交表单
+            $('#users-save').on('click', _signup);
+        }
+        $.ajax({
+            url:'/api/users/isAuth',
+            dataType:'json',
+            success(result){
+                if(result.ret){
+                    loadIndex(res);
+                }else{
+                    // console.log(result);
+                    router.go('/signin');
+                }
             }
         })
-        $("#users-pages").on('click', '#users-page-list li:last-child', function () {
-            let last = Math.ceil(dataList.length/pageSize);
-            if (curPage < last) {
-                curPage++
-                _list(curPage);
-                _setPageActive(curPage);
-            }
-        })
-        //设置退出登录
-        $("#users-signout").on('click',function(){
-            console.log(routers);
-            //a的优先级比这个go高，所以先把a的默认事件干掉
-            routers.go("/signin");
-        })
-        //初次渲染表格内容（用户列表）
-        _loadData();
-        _list(1);
 
-
-
-        //点击保存，提交表单
-        $('#users-save').on('click', _signup);
+        
     }
 }
 
