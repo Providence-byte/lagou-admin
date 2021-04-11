@@ -1,5 +1,5 @@
 const usersModel = require("../models/users");
-const { hash, compare } = require('../utils/tools');
+const { hash, compare, sign, verify } = require('../utils/tools');
 // const randomstring = require("randomstring");
 
 
@@ -50,14 +50,19 @@ const signin = async (req, res, next) => {
             // res.set('Set-Cookie', `sessionId=${sessionId}; Path=/; HttpOnly`)
 
             //用工具帮我们做session
-            req.session.username = username;
-            
+            // req.session.username = username;
+
+            //用token方法进行验证
+            const token = sign(username);
+            //设置自定义头部，将token存入其中
+            res.set('X-Access-Token', token);
+
             res.render('success', {
                 data: JSON.stringify({
                     message: '登录成功'
                 })
             })
-            
+
         } else {
             res.render('fail', {
                 data: JSON.stringify({
@@ -76,8 +81,8 @@ const signin = async (req, res, next) => {
 
 }
 //用户退出登录
-const signout = async (req,res,next) => {
-    req.session = null;
+const signout = async (req, res, next) => {
+    // req.session = null;
     res.render('success', {
         data: JSON.stringify({
             message: '成功退出登录'
@@ -114,20 +119,53 @@ const remove = async (req, res, next) => {
     }
 }
 //验证权限
-const isAuth = async (req,res,next) => {
-    if(req.session.username){
+//1.session方法
+// const isAuth = async (req,res,next) => {
+//     if(req.session.username){
+//         res.render('success', {
+//             data: JSON.stringify({
+//                 message: '通过验证'
+//             })
+//         })
+//     }else{
+//         res.render('fail', {
+//             data: JSON.stringify({
+//                 message: '用户登录过期'
+//             })
+//         })
+//     }
+// }
+//2.token方法
+const isAuth = async (req, res, next) => {
+    let token = req.get('X-Access-Token');
+    try {
+        let result = verify(token);
         res.render('success', {
             data: JSON.stringify({
-                message: '通过验证'
+                message: result.username
             })
         })
-    }else{
+    } catch (error) {
         res.render('fail', {
             data: JSON.stringify({
                 message: '用户登录过期'
             })
         })
     }
+
+    // if(req.session.username){
+    //     res.render('success', {
+    //         data: JSON.stringify({
+    //             message: '通过验证'
+    //         })
+    //     })
+    // }else{
+    //     res.render('fail', {
+    //         data: JSON.stringify({
+    //             message: '用户登录过期'
+    //         })
+    //     })
+    // }
 }
 
 exports.signup = signup;

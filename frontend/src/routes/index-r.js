@@ -1,6 +1,8 @@
 import SMERouter from 'sme-router' //前端webpack帮我们编译，不能用require的Node写法
 
-import {signin,index} from '../controller/index-c'
+//将首页模块和登录模块剥离
+import index from '../controller/index-c'
+import signin from '../controller/signin-c'
 
 const router = new SMERouter('root');
 
@@ -9,6 +11,8 @@ router.use((req) => {
     $.ajax({
         url:'/api/users/isAuth',
         dataType:'json',
+        //设置头部给后端送token
+        headers:{'X-Access-Token':localStorage.getItem('lg-token')||''},
         success(result){
             if(result.ret){
                 router.go('/index');

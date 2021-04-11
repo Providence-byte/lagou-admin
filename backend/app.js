@@ -24,10 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
+//用cookie-session的方式验证用户账号密码是否正确
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2']
+// }))
 
 //自己定义的接口
 app.use('/api/users',usersRouter);
