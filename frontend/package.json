@@ -16,7 +16,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "sme-router": "^0.12.8"
+    "gp21-router": "^0.1.0"
   },
   "scripts": {
     "build": "npx webpack",
