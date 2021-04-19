@@ -1,0 +1,26 @@
+<div class="box" id="positions-list-box">
+    <div class="box-header with-border">
+      <button class="btn btn-primary" id="add-position-btn" data-toggle="modal" data-target="#pos-modal">添加职位</button>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="height: 470px;">
+      <table class="table table-bordered">
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>公司名称</th>
+          <th>职位名称</th>
+          <th style="width: 70px">城市</th>
+          <th style="width: 70px">薪资</th>
+          <th style="width: 80px">发布时间</th>
+          <th style="width: 130px;text-align: center;">操作</th>
+        </tr>
+        <tbody id="positions-list"></tbody>
+      </table>
+    </div>
+    <div class="box-footer clearfix pull-right" id="users-pages">
+    </div>
+  </div>
+  
+    <!-- /.box-body -->
+  
+    <!-- /.box -->

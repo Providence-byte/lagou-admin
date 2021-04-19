@@ -26,21 +26,35 @@ module.exports = {
         filename: '[name].js'
 
     },
+    //配置loader
     module: {
-
         rules: [
             //解析art文件
             {
                 test: /\.art$/,
                 use: {
-                    loader: "art-template-loader"
+                    loader: "art-template-loader",
+                    options: {
+                        escape: false
+                    }
                 }
             },
             //解析css文件    
             {
                 test: /\.css$/,
-                loaders:["style-loader","css-loader"]
+                loaders: ["style-loader", "css-loader"]
             },
+            {
+                test: /\.(png|jpg|gif)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                        },
+                    },
+                ]
+            }
 
         ]
     },
@@ -52,7 +66,7 @@ module.exports = {
             filename: 'index.html',
             inject: true
         }),
-        
+
         new copyPlugin({
             patterns: [
                 //复制ico到dist中
@@ -67,7 +81,7 @@ module.exports = {
                 }
             ]
         }),
-         //每次构建之前清理/ dist文件夹
+        //每次构建之前清理/ dist文件夹
         new CleanWebpackPlugin()
     ],
     //配置server
@@ -78,8 +92,8 @@ module.exports = {
         //代理 解决跨域
         proxy: {
             '/api': {
-              target: 'http://localhost:3000'
+                target: 'http://localhost:3000'
             }
-          }
+        }
     }
 }

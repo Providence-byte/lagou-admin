@@ -4,7 +4,7 @@ const { hash, compare, sign, verify } = require('../utils/tools');
 
 
 //注册用户
-const signup = async (req, res, next) => {
+const addUser = async (req, res, next) => {
     res.set("content-type", "application/json;charset=UTF-8");
     const { username, password } = req.body;
     const hashPassword = await hash(password)
@@ -20,7 +20,7 @@ const signup = async (req, res, next) => {
         });
     } else {
         //数据库中没有该用户
-        await usersModel.signup({
+        await usersModel.addUser({
             username,
             password: hashPassword
         });
@@ -168,7 +168,7 @@ const isAuth = async (req, res, next) => {
     // }
 }
 
-exports.signup = signup;
+exports.addUser = addUser;
 exports.list = list;
 exports.remove = remove;
 exports.signin = signin;

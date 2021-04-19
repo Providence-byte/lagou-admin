@@ -4,7 +4,7 @@ const findUser = (username)=>{
     return Users.findOne({username})
 }
 
-const signup = ({username,password})=>{
+const addUser = ({username,password})=>{
     const users = new Users({
         username,
         password
@@ -22,7 +22,7 @@ const signup = ({username,password})=>{
      return Users.deleteOne({_id:id});
  }
 
-exports.signup = signup;
+exports.addUser = addUser;
 exports.findUser = findUser;
 exports.findList = findList;
 exports.remove = remove;

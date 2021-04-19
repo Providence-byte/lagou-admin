@@ -16,7 +16,9 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "gp21-router": "^0.1.0"
+    "file-loader": "^6.2.0",
+    "gp21-router": "^0.1.0",
+    "url-loader": "^4.1.1"
   },
   "scripts": {
     "build": "npx webpack",

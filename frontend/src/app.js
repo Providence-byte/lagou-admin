@@ -1,7 +1,8 @@
 import router from './routes/index-r'
 import './assets/common.css'
 
-// router.go('/');
-router.go(location.hash.substr(1))
+let hash = location.hash.slice(1);
+router.go(hash);
+
 
 

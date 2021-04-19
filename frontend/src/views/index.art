@@ -46,7 +46,7 @@
                       <!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="http://adminlte.xueyao.org/dist/img/user2-160x160.jpg" class="img-circle"
+                          <img src="{{img}}" class="img-circle"
                             alt="User Image">
                         </div>
                         <h4>
@@ -60,7 +60,7 @@
                     <li>
                       <a href="#">
                         <div class="pull-left">
-                          <img src="http://adminlte.xueyao.org/dist/img/user3-128x128.jpg" class="img-circle"
+                          <img src="{{img}}" class="img-circle"
                             alt="User Image">
                         </div>
                         <h4>
@@ -73,7 +73,7 @@
                     <li>
                       <a href="#">
                         <div class="pull-left">
-                          <img src="http://adminlte.xueyao.org/dist/img/user4-128x128.jpg" class="img-circle"
+                          <img src="{{img}}" class="img-circle"
                             alt="User Image">
                         </div>
                         <h4>
@@ -86,7 +86,7 @@
                     <li>
                       <a href="#">
                         <div class="pull-left">
-                          <img src="http://adminlte.xueyao.org/dist/img/user3-128x128.jpg" class="img-circle"
+                          <img src="{{img}}" class="img-circle"
                             alt="User Image">
                         </div>
                         <h4>
@@ -99,7 +99,7 @@
                     <li>
                       <a href="#">
                         <div class="pull-left">
-                          <img src="http://adminlte.xueyao.org/dist/img/user4-128x128.jpg" class="img-circle"
+                          <img src="{{img}}" class="img-circle"
                             alt="User Image">
                         </div>
                         <h4>
@@ -241,13 +241,13 @@
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="http://adminlte.xueyao.org/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <img src="{{img}}" class="user-image" alt="User Image">
                 <span class="hidden-xs">流体石头</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                  <img src="http://adminlte.xueyao.org/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                  <img src="{{img}}" class="img-circle" alt="User Image">
 
                   <p>
                     流体石头 - PHP开发者
@@ -295,7 +295,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="http://adminlte.xueyao.org/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="{{img}}" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
             <p>流体石头</p>
@@ -314,36 +314,33 @@
         </form>
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
+        <ul class="sidebar-menu" id="sidebar-menu">
           <li class="header">主导航</li>
           <li class="treeview">
-            <a href="#">
+            <a href="#/index/users">
               <i class="fa fa-dashboard"></i> <span>用户管理</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="index.html"><i class="fa fa-circle-o"></i> java</a></li>
-              <li><a href="index2.html"><i class="fa fa-circle-o"></i> c++</a></li>
-              <li><a href="index2.html"><i class="fa fa-circle-o"></i> HTML5</a></li>
-              <li><a href="index2.html"><i class="fa fa-circle-o"></i> 深度学习</a></li>
-              <li><a href="index2.html"><i class="fa fa-circle-o"></i> 区块链</a></li>
-            </ul>
+            <!-- <ul class="treeview-menu">
+              <li><a href="#/index/users"><i class="fa fa-circle-o"></i> 添加用户</a></li>
+              <li><a href="#/index/users"><i class="fa fa-circle-o"></i> 删除用户</a></li>
+            </ul> -->
           </li>
           <li class="treeview">
-            <a href="#">
+            <a href="#/index/positions">
               <i class="fa fa-files-o"></i>
-              <span>产品</span>
+              <span>职位管理</span>
               <span class="pull-right-container">
-                <span class="label label-primary pull-right">1000+</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="top-nav.html"><i class="fa fa-circle-o"></i> 产品总监</a></li>
-              <li><a href="boxed.html"><i class="fa fa-circle-o"></i> 产品经理</a></li>
-              <li><a href="fixed.html"><i class="fa fa-circle-o"></i> 游戏策划</a></li>
-            </ul>
+            <!-- <ul class="treeview-menu">
+              <li><a href="#/index/positions"><i class="fa fa-circle-o"></i> 产品总监</a></li>
+              <li><a href="#/index/positions"><i class="fa fa-circle-o"></i> 产品经理</a></li>
+              <li><a href="#/index/positions"><i class="fa fa-circle-o"></i> 游戏策划</a></li>
+            </ul> -->
           </li>
           <li>
             <a href="widgets.html">
@@ -411,9 +408,9 @@
               <li><a href="data.html"><i class="fa fa-circle-o"></i> 数据表格</a></li>
             </ul>
           </li>
-          <li class="treeview active">
+          <li class="treeview">
             <a href="#">
-              <i class="fa fa-folder"></i> <span>游戏</span>
+              <i class="fa fa-table"></i> <span>游戏</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -561,20 +558,22 @@
             <div class="nav-tabs-custom">
               <!-- Tabs within a box -->
               <ul class="nav nav-tabs pull-right">
-                <li class="active"><a href="#revenue-chart" data-toggle="tab">面积</a></li>
+                <li class="active"><a href="#revenue-chart" data-toggle="tab">列表</a></li>
                 <li><a href="#sales-chart" data-toggle="tab">圆环图</a></li>
-                <li class="pull-left header"><i class="fa fa-inbox"></i> 用户信息</li>
+                <li class="pull-left header" id="mainTitle"><i class="fa fa-inbox"></i> {{mainNav}}</li>
               </ul>
               <div class="tab-content no-padding">
                 <!-- Morris chart - Sales -->
                 <div class="chart tab-pane active" id="revenue-chart"
                   style="position: relative; height: 590px;">
                   <div id="user-content">
-
+                    {{subRouter}}
                     
                   </div>
                 </div>
-                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                这里什么也没有
+                </div>
               </div>
             </div>
             <!-- /.nav-tabs-custom -->

@@ -31,7 +31,7 @@ let pagination = (data,usersListPagesTpl) => {
 //事件data
 const _bindEvent = (data)=>{
      //点击页数按钮翻页事件
- $("#users-pages").on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
+ $("#users-pages").off('click').on('click', '#users-page-list li:not(:first-child,:last-child)', function () {
     let index = $(this).index();
     // _list(index);
     // curPage = index;
